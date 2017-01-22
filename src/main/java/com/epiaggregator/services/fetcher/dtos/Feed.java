@@ -7,14 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Feed {
-
     private final String description;
     private final String title;
     private final String link;
-    private String image = null;
+    private final String feedUri;
     private final List<Entry> entries = new ArrayList<>();
+    private String image = null;
 
-    public Feed(SyndFeed feed) {
+    public Feed(String url, SyndFeed feed) {
+        this.feedUri = url;
+
         this.description = feed.getDescription();
         this.title = feed.getTitle();
         this.link = feed.getLink();
@@ -24,6 +26,10 @@ public class Feed {
         for (SyndEntry entry : feed.getEntries()) {
             this.entries.add(new Entry(entry));
         }
+    }
+
+    public String getFeedUri() {
+        return feedUri;
     }
 
     public String getDescription() {
